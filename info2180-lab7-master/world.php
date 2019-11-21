@@ -7,7 +7,8 @@ $country = $_GET['country'];
 $context = $_GET['context'];
 $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
 $stmt = $conn->query("SELECT * FROM countries WHERE name LIKE '%$country%';");
-$stmt2 = $conn->query("SELECT cities.name, cities.district, cities.population FROM cities JOIN countries ON countries.code=cities.country_code;");
+$stmt2 = $conn->query("SELECT cities.name, cities.district, cities.population FROM cities JOIN countries ON countries.code=cities.country_code WHERE cities.country_code = countries.code AND countries.name LIKE '%$country%';");
+
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
